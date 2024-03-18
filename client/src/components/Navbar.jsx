@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <div className="container">
         <div className="logo">
           <img src={Logo} alt="" />
@@ -38,7 +38,7 @@ const Navbar = () => {
           </span>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 
