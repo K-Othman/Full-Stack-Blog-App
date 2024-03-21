@@ -345,7 +345,6 @@ $lightGreen: #b9e7e7;
         .buttons {
           display: flex;
           justify-content: space-between;
-          margin-top: 5px;
 
           :first-child {
             cursor: pointer;
@@ -361,6 +360,12 @@ $lightGreen: #b9e7e7;
             border: 1px solid teal;
             padding: 3px 5px;
           }
+        }
+        .cat {
+          display: flex;
+          align-items: center;
+          gap: 2px;
+          color: teal;
         }
       }
     }
