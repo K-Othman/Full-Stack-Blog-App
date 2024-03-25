@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Resgister = () => {
@@ -10,6 +10,7 @@ const Resgister = () => {
   });
 
   const [err, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -18,8 +19,8 @@ const Resgister = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("auth/register", inputs);
-      console.log(res);
+      await axios.post("auth/register", inputs);
+      navigate("/login");
     } catch (err) {
       setError(err.response.data);
     }
