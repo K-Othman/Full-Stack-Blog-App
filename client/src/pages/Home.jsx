@@ -13,8 +13,8 @@ const Home = () => {
       } catch (err) {
         console.log(err);
       }
-      fetchData();
     };
+    fetchData();
   }, []);
 
   // const posts = [
