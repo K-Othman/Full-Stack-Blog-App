@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Edite from "../img/edit.png";
 import Delete from "../img/delete.png";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Menu from "../components/Menu";
 import axios from "axios";
 import moment from "moment";
@@ -11,6 +11,7 @@ const Single = () => {
   const [post, setPost] = useState({});
 
   const postId = useParams().id;
+  const navigate = useNavigate();
 
   const { currentUser } = useContext(AuthContext);
 
@@ -26,17 +27,21 @@ const Single = () => {
     fetchData();
   }, [postId]);
 
-  console.log(post);
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/posts/${postId}`);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="single">
       <div className="content">
         {post.img && <img src={post.img} alt="img" />}
         <div className="user">
-          <img
-            src="https://images.unsplash.com/photo-1710390916960-3047fcdf561e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt=""
-          />
+          {post.userImg && <img src={post.userImg} alt="" />}
           <div className="info">
             <span>{post.username}</span>
             <p>posted {moment(post.date).fromNow()}</p>
@@ -46,7 +51,7 @@ const Single = () => {
               <Link to="/write?edit=2">
                 <img src={Edite} alt="" />
               </Link>
-              <img src={Delete} alt="" />
+              <img onClick={handleDelete} src={Delete} alt="" />
             </div>
           )}
         </div>
