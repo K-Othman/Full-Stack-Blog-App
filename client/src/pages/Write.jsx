@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 
 const Write = () => {
@@ -11,6 +11,8 @@ const Write = () => {
   const [title, setTitle] = useState(state?.desc || "");
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState(state?.cat || null);
+
+  const navigate = useNavigate();
 
   const upload = async () => {
     try {
@@ -25,16 +27,16 @@ const Write = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const imgUrl = upload();
+    const imgUrl = await upload();
     try {
       state
-        ? await axios.put(`/posts/`, {
+        ? await axios.put(`/posts/${state.id}`, {
             title,
             desc: value,
             cat,
             img: file ? imgUrl : "",
           })
-        : await axios.post(`/posts/${state.id}`, {
+        : await axios.post(`/posts/`, {
             title,
             desc: value,
             cat,
@@ -53,7 +55,6 @@ const Write = () => {
           type="text"
           placeholder="Title"
           onChange={(e) => setTitle(e.target.value)}
-          value={title}
         />
         <div className="editorContainer">
           <ReactQuill
@@ -68,19 +69,16 @@ const Write = () => {
         <div className="item">
           <h1>Publish</h1>
           <span>
-            {" "}
             <b>Status: </b> Draft
           </span>
           <span>
-            {" "}
-            <b>Visiability: </b> Public
+            <b>Visibility: </b> Public
           </span>
-
           <input
             style={{ display: "none" }}
             type="file"
-            name=""
             id="file"
+            name=""
             onChange={(e) => setFile(e.target.files[0])}
           />
           <label className="file" htmlFor="file">
@@ -98,8 +96,8 @@ const Write = () => {
               type="radio"
               checked={cat === "art"}
               name="cat"
-              id="art"
               value="art"
+              id="art"
               onChange={(e) => setCat(e.target.value)}
             />
             <label htmlFor="art">Art</label>
@@ -109,8 +107,8 @@ const Write = () => {
               type="radio"
               checked={cat === "science"}
               name="cat"
-              id="science"
               value="science"
+              id="science"
               onChange={(e) => setCat(e.target.value)}
             />
             <label htmlFor="science">Science</label>
@@ -120,8 +118,8 @@ const Write = () => {
               type="radio"
               checked={cat === "technology"}
               name="cat"
-              id="technology"
               value="technology"
+              id="technology"
               onChange={(e) => setCat(e.target.value)}
             />
             <label htmlFor="technology">Technology</label>
@@ -131,8 +129,8 @@ const Write = () => {
               type="radio"
               checked={cat === "cinema"}
               name="cat"
-              id="cinema"
               value="cinema"
+              id="cinema"
               onChange={(e) => setCat(e.target.value)}
             />
             <label htmlFor="cinema">Cinema</label>
@@ -140,21 +138,21 @@ const Write = () => {
           <div className="cat">
             <input
               type="radio"
-              checked={cat === "desgin"}
+              checked={cat === "design"}
               name="cat"
-              id="desgin"
-              value="desgin"
+              value="design"
+              id="design"
               onChange={(e) => setCat(e.target.value)}
             />
-            <label htmlFor="desgin">Desgin</label>
+            <label htmlFor="design">Design</label>
           </div>
           <div className="cat">
             <input
               type="radio"
               checked={cat === "food"}
               name="cat"
-              id="food"
               value="food"
+              id="food"
               onChange={(e) => setCat(e.target.value)}
             />
             <label htmlFor="food">Food</label>

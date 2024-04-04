@@ -42,13 +42,18 @@ const Menu = ({ cat }) => {
   //     img: "https://images.pexels.com/photos/6157049/pexels-photo-6157049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   //   },
   // ];
+
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
+  };
   return (
     <div className="menu">
       <h1>Other posts you may like</h1>
       {posts.map((post) => (
         <div className="post" key={post.id}>
-          <img src={post.img} alt={post.desc} />
-          <h2>{post.desc}</h2>
+          <img src={`../upload/${post.img}`} alt={post.desc} />
+          <h2>{getText(post.desc)}</h2>
           <button>Read More</button>
         </div>
       ))}

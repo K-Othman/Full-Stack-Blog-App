@@ -18,12 +18,17 @@ export const AuthContextProvider = ({ children }) => {
     setCurrentUser(null);
   };
 
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
+  };
+
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, login, logout }}>
+    <AuthContext.Provider value={{ currentUser, login, logout, getText }}>
       {children}
     </AuthContext.Provider>
   );

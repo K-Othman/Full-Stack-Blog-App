@@ -13,7 +13,7 @@ const Single = () => {
   const postId = useParams().id;
   const navigate = useNavigate();
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, getText } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +39,7 @@ const Single = () => {
   return (
     <div className="single">
       <div className="content">
-        {post.img && <img src={post.img} alt="img" />}
+        {post.img && <img src={`../upload/${post.img}`} alt="img" />}
         <div className="user">
           {post.userImg && <img src={post.userImg} alt="" />}
           <div className="info">
@@ -56,7 +56,7 @@ const Single = () => {
           )}
         </div>
         <h1>{post.title}</h1>
-        {post.desc}
+        {getText(post.desc)}
       </div>
       <Menu cat={post.cat} />
     </div>
