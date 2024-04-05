@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../context/authContext";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
 
   const cat = useLocation().search;
+  const { getText } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,10 +48,10 @@ const Home = () => {
   //   },
   // ];
 
-  const getText = (html) => {
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent;
-  };
+  // const getText = (html) => {
+  //   const doc = new DOMParser().parseFromString(html, "text/html");
+  //   return doc.body.textContent;
+  // };
 
   return (
     <div className="home">

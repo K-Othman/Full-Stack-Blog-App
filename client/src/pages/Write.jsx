@@ -43,6 +43,7 @@ const Write = () => {
             img: file ? imgUrl : "",
             date: moment(Date.now()).format("YYYY-MM-DD HH:SS"),
           });
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
